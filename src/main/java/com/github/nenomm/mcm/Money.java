@@ -1,6 +1,6 @@
 package com.github.nenomm.mcm;
 
-public abstract class Money {
+public class Money {
     protected int amount;
     protected String currency;
 
@@ -13,7 +13,7 @@ public abstract class Money {
     public boolean equals(Object obj) {
         Money money = (Money) obj;
         return amount == money.amount
-                && getClass().equals(money.getClass());
+                && currency.equals(money.currency);
     }
 
     static Money dollar(int amount) {
@@ -24,9 +24,15 @@ public abstract class Money {
         return new Franc(amount, "CHF");
     }
 
-    abstract Money times(int multiplier);
+    Money times(int multiplier) {
+        return new Money(amount * multiplier, currency);
+    }
 
     String currency() {
         return currency;
+    }
+
+    public String toString() {
+        return amount + " " + currency;
     }
 }
